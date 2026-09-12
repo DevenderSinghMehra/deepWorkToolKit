@@ -1,8 +1,46 @@
+import { useRef, useState } from "react";
 import { ProgressRing } from "./ProgressRing";
-
+import { TimerControls } from "./TimerControls";
+import { TimerDial } from "./TimerDial";
+//!also ensure there is timer off variation the sound i mean.
 export function Timer({ running, onToggle }) {
+  const dialRef = useRef(null)
+  const [isPause, setIsPause] = useState(false)
+  const [isStop, setIsStop] = useState(false)
+
+
+
+
+  /* function toggleTimer(isStart) {
+    const dial = dialRef.current
+    const value = Number(dial.value)
+    dial.disabled = isStart ? true : false
+    dial.classList[isStart ? "add" : "remove"]("user-select-none", 'caret-transparent')
+    //--
+    if (isStart) {
+      dial.value = getTime(value)
+    }
+
+
+  } */
+
+
   return (
-    <section
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        const btnId = e.nativeEvent.submitter.id
+        // const isStart = btnId === "start"
+        // console.log(btnId, isStart)
+
+
+        // toggleTimer(isStart)
+
+
+
+
+
+      }}
       className="w-fit flex flex-col items-center"
       aria-label="Deep focus timer"
     >
@@ -14,24 +52,18 @@ export function Timer({ running, onToggle }) {
         <strong>DEEP FOCUS ACTIVE</strong>
       </div>
 
-      <div className="relative ">
-        <ProgressRing className="size-68" />
+      <div className="relative mt-8">
+        <ProgressRing className="size-70 stroke-[4px] md:size-75" />
         <div className="text-center absolute inset-0 flex flex-col gap-y-1 items-center justify-center ">
-          <h2 className="text-[clamp(3.25rem,8vw,5.5rem)] font-poppins w-[calc(100% + 4px)] font-bold text-white">
-            12:45
-          </h2>
+
+          <TimerDial isPause={isPause} isStop={isStop} dialRef={dialRef} />
           <b className="text-[11px] md:text-xs font-medium text-[#8E8E93]">
             REMAINING TIME
           </b>
         </div>
       </div>
-      <button
-        onClick={() => {}}
-        aria-label={running ? "Pause focus timer" : "Start focus timer"}
-        className="mt-7 flex rounded-full bg-black shadow-md  "
-      >
-        {/* //pause play logic */}
-      </button>
-    </section>
+
+      <TimerControls isPause={isPause} setIsPause={setIsPause} setIsStop={setIsStop} isStop={isStop} />
+    </form>
   );
 }

@@ -1,6 +1,5 @@
 export function ProgressRing({
   time,
-  strokeWidth = 3.5,
   className: extraClassName = "",
 }) {
   // strokeDasharray → defines a draw–skip pattern along the stroke; once the pattern reaches the available stroke length, it stops.
@@ -13,13 +12,13 @@ export function ProgressRing({
   const strokeShift = circumference * (1 - progress);
 
   return (
-    <svg viewBox="0 0 100 100" className={`-rotate-90 ${extraClassName}`}>
+    <svg viewBox="0 0 100 100" className={`-rotate-90 ${extraClassName} `}>
       <circle
         cx="50"
         cy="50"
         r={radius}
         stroke="#454546"
-        strokeWidth={strokeWidth}
+        strokeWidth="inherit"
         strokeLinecap="round"
         fill="none"
       />
@@ -29,7 +28,7 @@ export function ProgressRing({
         cy="50"
         r={radius}
         stroke="white"
-        strokeWidth={strokeWidth}
+        strokeWidth="inherit"
         strokeLinecap="round"
         fill="none"
         strokeDashoffset={strokeShift}
